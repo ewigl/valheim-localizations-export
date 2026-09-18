@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <RootNamespace>ValheimLocalizationsExport</RootNamespace>
+    <AssemblyName>ValheimLocalizationsExport</AssemblyName>
+
+    <Version>0.0.1</Version>
+    <FileVersion>0.0.1</FileVersion>
+    <Title>Valheim Localizations Export</Title>
+    <Authors>EwigLicht</Authors>
+    <Description>Exports Valheim's localizations to JSON files.</Description>
+    <Copyright>Copyright © 2026 EwigLicht. All rights reserved.</Copyright>
+
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+
+    <ModInstallPath>
+      E:\Games\Steam\steamapps\common\Valheim\BepInEx\plugins\ValheimLocalizationsExport\
+    </ModInstallPath>
+
+    <NoWarn>$(NoWarn);MSB3245</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JotunnLib" Version="2.30.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+  </ItemGroup>
+
+  <Target Name="CleanExtraDLLs" AfterTargets="Build">
+    <ItemGroup>
+      <ExtraDlls Include="$(TargetDir)*.dll" Exclude="$(TargetDir)$(AssemblyName).dll" />
+    </ItemGroup>
+    <Delete Files="@(ExtraDlls)" />
+  </Target>
+
+  <Target Name="CopyToPlugins" AfterTargets="CleanExtraDLLs">
+    <Message Text="正在将模组复制到: $(ModInstallPath)" Importance="high" />
+    <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(ModInstallPath)"
+      SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>
