@@ -24,7 +24,7 @@ namespace ValheimLocalizationsExport
                 return;
             }
 
-            foreach (var languageName in new[] { "English", "Chinese" })
+            foreach (var languageName in new[] { "English", "Chinese", "Swedish" })
             {
                 TryExportLanguage(languageName);
             }
